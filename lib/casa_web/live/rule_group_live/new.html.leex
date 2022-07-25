@@ -1,0 +1,13 @@
+<%= f = form_for @changeset, "#", phx_change: "change", id: "rule-group-form", phx_hook: "RuleGroupHandler" %>
+  <%= label f, :nome %>
+  <%= text_input f, :nome %>
+
+  <%= label f, :descricao %>
+  <%= text_input f, :descricao %>
+    <div id="rules_container">
+    <%= for rule_form <- inputs_for(f, :rules) do %>
+        <%= text_input rule_form, :nome %>
+    <% end %>
+    </div>
+  <%= link "Add rule", to: "#", phx_click: "add-rule" %>
+</form>

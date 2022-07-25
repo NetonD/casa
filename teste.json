@@ -1,0 +1,15 @@
+{
+	"descricao": "descri",
+	"nome": "nome 1",
+	"rules": [
+		{
+			"nome": "rule1",
+			"expression": "exp"
+		},
+		{
+			"nome": "rule2",
+			"expression": "exp2"
+		}
+	]
+}
+

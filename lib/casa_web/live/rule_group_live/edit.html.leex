@@ -1,0 +1,43 @@
+<%= f = form_for @changeset, "#", phx_change: "change", id: "rule-group-form", phx_hook: "RuleGroupHandler" %>
+    <%= hidden_inputs_for f %>
+
+    <%= label f, :nome %>
+    <%= text_input f, :nome %>
+
+    <%= label f, :descricao %>
+    <%= text_input f, :descricao %>
+
+    <ul id="rules-container" phx-update="ignore">
+        <%= content_tag :h3, "Rules:" %>
+        <hr>
+        <%= for rule_form <- inputs_for(f, :rules) do %>
+            <li id="<%= rule_form.name %>" class="rule">
+                <%= hidden_inputs_for rule_form %>
+                <%= label rule_form, :nome, "Nome" %>
+                <%= text_input rule_form, :nome %>
+
+                <%= label rule_form, :expression, "Expression" %>
+                <%= text_input rule_form, :expression %>
+
+                <ul id="<%= ~s(conditions-container-#{rule_form.index})  %>" class="phx-hero condition-container">
+                    <%= for condition_form <- inputs_for(rule_form, :conditions) do %>
+                        <li id="<%= condition_form.name %>" class="condition">
+                            <%= hidden_inputs_for condition_form %>
+
+                            <%= label condition_form, :evaluator %>
+                            <%= text_input condition_form, :evaluator %>
+
+                            <%= label condition_form, :operator %>
+                            <%= text_input condition_form, :operator %>
+
+                            <%= label condition_form, :value %>
+                            <%= text_input condition_form, :value %>
+                        </li>
+                    <% end %>
+                </ul>
+                <%= link "Add condition", to: "#", phx_click: "add-condition", phx_value_rule_target: rule_form.index %>
+            </li>
+        <% end %>
+    </ul>
+  <%= link "Add rule", to: "#", phx_click: "add-rule" %>
+</form>
